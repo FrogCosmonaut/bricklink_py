@@ -22,7 +22,7 @@ With this wrapper, you can easily integrate Bricklink's functionality into your 
 ### Installation
 
 ```bash
-$ pip install bricklink_py
+$ pip install bricklink-py
 ```
 
 ```python
