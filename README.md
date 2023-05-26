@@ -2,7 +2,7 @@
 
 ---
 
-###### Version: 0.0.2
+###### Version: 0.0.1
 
 ### 👷‍♂️ WIP 🛠
 
@@ -85,6 +85,6 @@ Contributions, bug reports, and feature requests are welcome! If you encounter a
 
 ### License
 
-This project is licensed under the MIT License. Feel free to use and modify it according to your needs.
+This project is licensed under the GNU Affero General Public License (AGPL). Feel free to use, modify, and distribute it according to the terms of the AGPL license.
 
 LEGO® is a trademark of the LEGO Group of companies, which does not sponsor, authorize, or endorse this project.
