@@ -34,14 +34,14 @@ class Coupon(BaseResource):
 
         Returns:
             requests.Response: The response object returned from the request.
-        """ 
+        """
         params = {
             "direction": direction,
             "status": status
         }
-        uri = f'coupons'
+        uri = 'coupons'
         return self._request('get', uri, params)
-    
+
     def get_coupon(self, coupon_id: int):
         """Retrieves a specific coupon.
 
@@ -53,20 +53,20 @@ class Coupon(BaseResource):
         """
         uri = f'coupons/{coupon_id}'
         return self._request('get', uri)
-    
+
     def create_coupon(self, body: dict):
         """Creates a new coupon for a buyer.
 
         Arguments:
             body -- Supply a coupon resource.
-            https://www.bricklink.com/v3/api.page?page=resource-representations-coupon    
+            https://www.bricklink.com/v3/api.page?page=resource-representations-coupon
 
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'coupons'
+        uri = 'coupons'
         return self._request('post', uri, body=body)
-    
+
     def update_coupon(self, coupon_id: int, body: dict):
         """Updates properties of the specified coupon.
 
@@ -81,7 +81,7 @@ class Coupon(BaseResource):
         """
         uri = f'coupons/{coupon_id}'
         return self._request('put', uri, body=body)
-    
+
     def delete_coupon(self, coupon_id):
         """Deletes the specified coupon.
 

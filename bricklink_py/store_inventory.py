@@ -68,9 +68,9 @@ class StoreInventory(BaseResource):
             "category_id": category_id,
             "color_id": color_id
         }
-        uri = f'inventories'
+        uri = 'inventories'
         return self._request('get', uri, params)
-    
+
     def get_store_inventory(self, inventory_id: int):
         """Retrieves information about a specific inventory.
 
@@ -82,7 +82,7 @@ class StoreInventory(BaseResource):
         """
         uri = f'inventories/{inventory_id}'
         return self._request('get', uri)
-    
+
     def create_store_inventory(self, body: dict):
         """Creates a new inventory with an item.
 
@@ -102,9 +102,9 @@ class StoreInventory(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'inventories'
+        uri = 'inventories'
         return self._request('post', uri, body=body)
-    
+
     def create_store_inventories(self, body: dict):
         """Creates multiple inventories in a single request. Note that you can
         create an inventory only with items in the BL Catalog.
@@ -112,7 +112,7 @@ class StoreInventory(BaseResource):
         Arguments:
             body -- Supply a store inventory resource. The store inventory
             resource should include:
-            
+
             {item.no}, {item.type}, {color_id}, {quantity}, {unit_price},
             {new_or_used}, {completeness} (only when item.type is "set"),
             {description}, {remarks}, {bulk}, {is_retain}, {is_stock_room},
@@ -125,9 +125,9 @@ class StoreInventory(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'inventories'
+        uri = 'inventories'
         return self._request('post', uri, body=body)
-    
+
     def update_store_inventory(self, inventory_id: int, body: dict):
         """Updates properties of the specified inventory.
 
@@ -150,7 +150,7 @@ class StoreInventory(BaseResource):
         """
         uri = f'inventories/{inventory_id}'
         return self._request('put', uri, body=body)
-    
+
     def delete_store_inventory(self, inventory_id: int):
         """Deletes the specified inventory.
 
@@ -162,4 +162,3 @@ class StoreInventory(BaseResource):
         """
         uri = f'inventories/{inventory_id}'
         return self._request('delete', uri)
-    

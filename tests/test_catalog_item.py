@@ -1,12 +1,9 @@
-import pytest
-from unittest.mock import patch, MagicMock
-
-from bricklink_py.catalog_item import CatalogItem
+from unittest.mock import MagicMock
 
 
 class TestCatalogItem:
     """Tests for the CatalogItem resource."""
-    
+
     def test_get_item(self, bricklink_client, mock_oauth_session):
         """Test getting item details."""
         # Configure mock response
@@ -26,22 +23,22 @@ class TestCatalogItem:
             }
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.catalog_item.get_item('SET', '75281-1')
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/items/SET/75281-1',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert result['no'] == '75281-1'
         assert result['name'] == 'Anakin\'s Jedi Interceptor'
         assert result['year_released'] == 2020
         assert result['weight'] == '360.00'
-    
+
     def test_get_item_image(self, bricklink_client, mock_oauth_session):
         """Test getting item image URL."""
         # Configure mock response
@@ -57,20 +54,21 @@ class TestCatalogItem:
             }
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
-        result = bricklink_client.catalog_item.get_item_image('SET', '75281-1', 0)
-        
+        result = bricklink_client.catalog_item.get_item_image(
+            'SET', '75281-1', 0)
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/items/SET/75281-1/images/0',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert result['thumbnail_url'] == 'https://img.bricklink.com/ItemImage/TN/0/75281-1.png'
         assert result['large_url'] == 'https://img.bricklink.com/ItemImage/ON/0/75281-1.png'
-    
+
     def test_get_supersets(self, bricklink_client, mock_oauth_session):
         """Test getting supersets."""
         # Configure mock response
@@ -95,22 +93,23 @@ class TestCatalogItem:
             ]
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
-        result = bricklink_client.catalog_item.get_supersets('PART', '2654', 15)
-        
+        result = bricklink_client.catalog_item.get_supersets(
+            'PART', '2654', 15)
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/items/PART/2654/supersets',
             params={'color_id': 15}
         )
-        
+
         # Verify response was processed correctly
         assert len(result) == 1
         assert result[0]['color_id'] == 0
         assert result[0]['entries'][0]['item']['name'] == 'Super Star Destroyer'
         assert result[0]['entries'][0]['quantity'] == 4
-    
+
     def test_get_subsets(self, bricklink_client, mock_oauth_session):
         """Test getting subsets."""
         # Configure mock response
@@ -139,10 +138,11 @@ class TestCatalogItem:
             ]
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
-        result = bricklink_client.catalog_item.get_subsets('SET', '75281-1', box=True, instruction=True)
-        
+        result = bricklink_client.catalog_item.get_subsets(
+            'SET', '75281-1', box=True, instruction=True)
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/items/SET/75281-1/subsets',
@@ -154,12 +154,12 @@ class TestCatalogItem:
                 'break_subsets': False
             }
         )
-        
+
         # Verify response was processed correctly
         assert result[0]['match_no'] == '75281-1'
         assert result[0]['entries'][0]['item']['name'] == 'Slope 45 2 x 2'
         assert result[0]['entries'][0]['quantity'] == 2
-    
+
     def test_get_price_guide(self, bricklink_client, mock_oauth_session):
         """Test getting price guide."""
         # Configure mock response
@@ -187,12 +187,12 @@ class TestCatalogItem:
             }
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.catalog_item.get_price_guide(
             'SET', '75281-1', guide_type='sold', new_or_used='N', region='europe'
         )
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/items/SET/75281-1/price',
@@ -206,12 +206,12 @@ class TestCatalogItem:
                 'vat': 'N'
             }
         )
-        
+
         # Verify response was processed correctly
         assert result['item']['name'] == 'Anakin\'s Jedi Interceptor'
         assert result['currency_code'] == 'EUR'
         assert result['avg_price'] == '41.27'
-    
+
     def test_get_known_colors(self, bricklink_client, mock_oauth_session):
         """Test getting known colors."""
         # Configure mock response
@@ -234,16 +234,16 @@ class TestCatalogItem:
             ]
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.catalog_item.get_known_colors('PART', '3039')
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/items/PART/3039/colors',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert len(result) == 2
         assert result[0]['color_name'] == 'Blue'

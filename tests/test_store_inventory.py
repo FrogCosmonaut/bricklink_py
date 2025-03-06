@@ -1,12 +1,9 @@
-import pytest
-from unittest.mock import patch, MagicMock
-
-from bricklink_py.store_inventory import StoreInventory
+from unittest.mock import MagicMock
 
 
 class TestStoreInventory:
     """Tests for the StoreInventory resource."""
-    
+
     def test_get_store_inventories(self, bricklink_client, mock_oauth_session):
         """Test retrieving store inventories with filtering."""
         # Configure mock response
@@ -67,7 +64,7 @@ class TestStoreInventory:
             ]
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method with filters
         result = bricklink_client.store_inventory.get_store_inventories(
             item_type='PART',
@@ -75,7 +72,7 @@ class TestStoreInventory:
             category_id=38,
             color_id='1,5'
         )
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/inventories',
@@ -86,7 +83,7 @@ class TestStoreInventory:
                 'color_id': '1,5'
             }
         )
-        
+
         # Verify response was processed correctly
         assert len(result) == 2
         assert result[0]['inventory_id'] == 123456
@@ -95,7 +92,7 @@ class TestStoreInventory:
         assert result[1]['inventory_id'] == 123457
         assert result[1]['item']['name'] == 'Slope 45 2 x 1'
         assert result[1]['color_name'] == 'Red'
-    
+
     def test_get_store_inventory(self, bricklink_client, mock_oauth_session):
         """Test retrieving a specific inventory item."""
         # Configure mock response
@@ -129,22 +126,22 @@ class TestStoreInventory:
             }
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.store_inventory.get_store_inventory(123456)
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/inventories/123456',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert result['inventory_id'] == 123456
         assert result['item']['name'] == 'Slope 45 2 x 2'
         assert result['color_name'] == 'Blue'
         assert result['quantity'] == 20
-    
+
     def test_create_store_inventory(self, bricklink_client, mock_oauth_session):
         """Test creating a new inventory item."""
         # Configure mock response
@@ -156,7 +153,7 @@ class TestStoreInventory:
             }
         }
         mock_oauth_session.post.return_value = mock_response
-        
+
         # Call method
         inventory_data = {
             'item': {'no': '3039', 'type': 'PART'},
@@ -178,18 +175,19 @@ class TestStoreInventory:
             'tier_quantity3': 100,
             'tier_price3': '0.18'
         }
-        result = bricklink_client.store_inventory.create_store_inventory(inventory_data)
-        
+        result = bricklink_client.store_inventory.create_store_inventory(
+            inventory_data)
+
         # Verify request was made correctly
         mock_oauth_session.post.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/inventories',
             params=None,
             json=inventory_data
         )
-        
+
         # Verify response was processed correctly
         assert result['inventory_id'] == 123458
-    
+
     def test_create_store_inventories(self, bricklink_client, mock_oauth_session):
         """Test creating multiple inventory items."""
         # Configure mock response
@@ -202,7 +200,7 @@ class TestStoreInventory:
             ]
         }
         mock_oauth_session.post.return_value = mock_response
-        
+
         # Call method
         inventory_data = [
             {
@@ -220,20 +218,21 @@ class TestStoreInventory:
                 'new_or_used': 'N'
             }
         ]
-        result = bricklink_client.store_inventory.create_store_inventories(inventory_data)
-        
+        result = bricklink_client.store_inventory.create_store_inventories(
+            inventory_data)
+
         # Verify request was made correctly
         mock_oauth_session.post.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/inventories',
             params=None,
             json=inventory_data
         )
-        
+
         # Verify response was processed correctly
         assert len(result) == 2
         assert result[0]['inventory_id'] == 123458
         assert result[1]['inventory_id'] == 123459
-    
+
     def test_update_store_inventory(self, bricklink_client, mock_oauth_session):
         """Test updating an inventory item."""
         # Configure mock response
@@ -246,26 +245,27 @@ class TestStoreInventory:
             }
         }
         mock_oauth_session.put.return_value = mock_response
-        
+
         # Call method
         update_data = {
             'unit_price': '0.30',
             'quantity': 25,
             'remarks': 'Updated stock'
         }
-        result = bricklink_client.store_inventory.update_store_inventory(123456, update_data)
-        
+        result = bricklink_client.store_inventory.update_store_inventory(
+            123456, update_data)
+
         # Verify request was made correctly
         mock_oauth_session.put.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/inventories/123456',
             params=None,
             json=update_data
         )
-        
+
         # Verify response was processed correctly
         assert result['inventory_id'] == 123456
         assert result['unit_price'] == '0.30'
-    
+
     def test_delete_store_inventory(self, bricklink_client, mock_oauth_session):
         """Test deleting an inventory item."""
         # Configure mock response
@@ -278,16 +278,17 @@ class TestStoreInventory:
             }
         }
         mock_oauth_session.delete.return_value = mock_response
-        
+
         # Call method
-        result = bricklink_client.store_inventory.delete_store_inventory(123456)
-        
+        result = bricklink_client.store_inventory.delete_store_inventory(
+            123456)
+
         # Verify request was made correctly
         mock_oauth_session.delete.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/inventories/123456',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert result['inventory_id'] == 123456
         assert result['result'] == 'deleted'

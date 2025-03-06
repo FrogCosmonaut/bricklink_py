@@ -9,19 +9,14 @@ class PushNotification(BaseResource):
         method.
 
         A notification to be created when:
-
         - You received a new order.
-
         - Buyer updates an order status.
-
         - Items of an order are updated (added or deleted).
-
         - You received a new message.
-
         - You received a new feedback or reply.
 
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'notifications'
+        uri = 'notifications'
         return self._request('get', uri)

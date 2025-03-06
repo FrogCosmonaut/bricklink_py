@@ -10,9 +10,9 @@ class Category(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'categories'
+        uri = 'categories'
         return self._request('get', uri)
-    
+
     def get_category(self, category_id: int):
         """Retrieves information about a specific category.
 

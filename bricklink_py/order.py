@@ -33,9 +33,9 @@ class Order(BaseResource):
             'status': status,
             'filed': filed
         }
-        uri = f'orders'
+        uri = 'orders'
         return self._request('get', uri, params)
-    
+
     def get_order(self, order_id: int):
         """Retrieves the details of a specific order.
 
@@ -61,7 +61,7 @@ class Order(BaseResource):
         """
         uri = f'orders/{order_id}/items'
         return self._request('get', uri)
-    
+
     def get_order_messages(self, order_id: int):
         """Retrieves a list of messages for the specified order that the user
         receives as a seller.
@@ -74,7 +74,7 @@ class Order(BaseResource):
         """
         uri = f'orders/{order_id}/messages'
         return self._request('get', uri)
-    
+
     def get_order_feedback(self, order_id: int):
         """Retrieves a list of feedback for the specified order.
 
@@ -86,7 +86,7 @@ class Order(BaseResource):
         """
         uri = f'orders/{order_id}/feedback'
         return self._request('get', uri)
-    
+
     def update_order(self, order_id: int, body: dict):
         """Updates properties of a specific order.
 
@@ -100,17 +100,17 @@ class Order(BaseResource):
                 "date_shipped": "Timestamp",
                 "tracking_no": "String",
                 "tracking_link": "String",
-                "method_id": "Integer" 
+                "method_id": "Integer"
             },
             "cost": {
                 "shipping": "String",
                 "insurance": "String",
                 "credit": "String",
                 "etc1": "String",
-                "etc2": "String" 
+                "etc2": "String"
             },
             "is_filed" : "Boolean",
-            "remarks" : "String" 
+            "remarks" : "String"
             }
             ```
         Returns:
@@ -118,7 +118,7 @@ class Order(BaseResource):
         """
         uri = f'orders/{order_id}'
         return self._request('put', uri, body=body)
-    
+
     def update_order_status(self, order_id: int, body: dict):
         """Updates the status of a specific order.
 
@@ -134,7 +134,7 @@ class Order(BaseResource):
             ```
             Available status for value:
             https://www.bricklink.com/help.asp?helpID=41
-            
+
         Returns:
             requests.Response: The response object returned from the request.
         """
@@ -151,18 +151,18 @@ class Order(BaseResource):
             ```
             {
                 "field" : "payment_status",
-                "value" : "Received" 
+                "value" : "Received"
             }
             ```
             Available status for value:
             https://www.bricklink.com/help.asp?helpID=121
-            
+
         Returns:
             requests.Response: The response object returned from the request.
         """
         uri = f'orders/{order_id}/payment_status'
         return self._request('put', uri, body=body)
-    
+
     def send_drive_thru(self, order_id: int, mail_me: bool = False):
         """Send "Thank You, Drive Thru!" e-mail to a buyer.
 

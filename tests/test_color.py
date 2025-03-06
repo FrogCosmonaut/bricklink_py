@@ -1,12 +1,9 @@
-import pytest
-from unittest.mock import patch, MagicMock
-
-from bricklink_py.color import Color
+from unittest.mock import MagicMock
 
 
 class TestColor:
     """Tests for the Color resource."""
-    
+
     def test_get_color_list(self, bricklink_client, mock_oauth_session):
         """Test retrieving the list of colors."""
         # Configure mock response
@@ -47,16 +44,16 @@ class TestColor:
             ]
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.color.get_color_list()
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/colors',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert len(result) == 5
         assert result[0]['color_id'] == 1
@@ -65,7 +62,7 @@ class TestColor:
         assert result[1]['color_name'] == 'Green'
         assert result[2]['color_id'] == 3
         assert result[2]['color_name'] == 'Dark Turquoise'
-    
+
     def test_get_color(self, bricklink_client, mock_oauth_session):
         """Test retrieving a specific color."""
         # Configure mock response
@@ -80,16 +77,16 @@ class TestColor:
             }
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.color.get_color(4)
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/colors/4',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert result['color_id'] == 4
         assert result['color_name'] == 'Red'

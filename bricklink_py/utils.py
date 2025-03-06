@@ -8,6 +8,7 @@ API_BASE_URL = 'https://api.bricklink.com/api/store/v1/'
 
 class BricklinkError(Exception):
     """Base exception for Bricklink API errors"""
+
     def __init__(self, status_code: int, message: str, response_data: dict = None):
         self.status_code = status_code
         self.message = message
@@ -32,19 +33,20 @@ class AuthenticationError(BricklinkError):
 
 class BaseResource:
     """Base class for all Bricklink API resources with common utilities"""
-    
+
     def __init__(self, oauth_session: OAuth1Session):
         """Initialize with OAuth session"""
         self._oauth_session = oauth_session
-    
+
     def _request(self, method: str, uri: str, params: dict = None, body: dict = None) -> Any:
         """Wrapper for the request function with error handling"""
         try:
             return request(method, self._oauth_session, uri, params, body)
-        except BricklinkError as e:
+        except BricklinkError:
             raise
-        except Exception as e:
+        except Exception:
             raise
+
 
 def handle_response(response):
     """Process API response and handle errors appropriately"""
@@ -53,26 +55,29 @@ def handle_response(response):
     except ValueError:
         response.raise_for_status()
         return response
-    
+
     if 'meta' in response_data and response_data['meta']['code'] != 200:
         error_code = response_data['meta']['code']
         error_message = response_data['meta'].get('message', 'Unknown error')
-        
+
         if error_code == 404:
-            raise ResourceNotFoundError(error_code, error_message, response_data)
+            raise ResourceNotFoundError(
+                error_code, error_message, response_data)
         elif error_code == 429:
-            raise RateLimitError(error_code, "Rate limit exceeded", response_data)
+            raise RateLimitError(
+                error_code, "Rate limit exceeded", response_data)
         elif error_code in (401, 403):
             raise AuthenticationError(error_code, error_message, response_data)
         else:
             raise BricklinkError(error_code, error_message, response_data)
-            
+
     if 'data' in response_data:
         return response_data['data']
-    
+
     return response_data
 
-def request(method: str, oauth_session: OAuth1Session, uri: str, 
+
+def request(method: str, oauth_session: OAuth1Session, uri: str,
             params: dict = None, body: dict = None) -> Any:
     """Send a request to the specified URI using the provided
     method and OAuth session.
@@ -106,9 +111,9 @@ def request(method: str, oauth_session: OAuth1Session, uri: str,
             response = oauth_session.delete(url, params=params)
         else:
             raise ValueError(f"Unsupported HTTP method: {method}")
-            
+
         return handle_response(response)
-        
+
     except BricklinkError:
         raise
     except Exception:

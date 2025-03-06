@@ -1,12 +1,9 @@
-import pytest
-from unittest.mock import patch, MagicMock
-
-from bricklink_py.order import Order
+from unittest.mock import MagicMock
 
 
 class TestOrder:
     """Tests for the Order resource."""
-    
+
     def test_get_orders(self, bricklink_client, mock_oauth_session):
         """Test retrieving orders."""
         # Configure mock response
@@ -41,23 +38,25 @@ class TestOrder:
             ]
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
-        result = bricklink_client.order.get_orders(direction='in', status='PENDING,PROCESSING')
-        
+        result = bricklink_client.order.get_orders(
+            direction='in', status='PENDING,PROCESSING')
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/orders',
-            params={'direction': 'in', 'status': 'PENDING,PROCESSING', 'filed': False}
+            params={'direction': 'in',
+                    'status': 'PENDING,PROCESSING', 'filed': False}
         )
-        
+
         # Verify response was processed correctly
         assert len(result) == 2
         assert result[0]['order_id'] == 12345678
         assert result[0]['status'] == 'PENDING'
         assert result[1]['order_id'] == 12345679
         assert result[1]['status'] == 'PROCESSING'
-    
+
     def test_get_order(self, bricklink_client, mock_oauth_session):
         """Test retrieving a specific order."""
         # Configure mock response
@@ -90,22 +89,22 @@ class TestOrder:
             }
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.order.get_order(12345678)
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/orders/12345678',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert result['order_id'] == 12345678
         assert result['buyer_name'] == 'TestBuyer'
         assert result['status'] == 'PENDING'
         assert result['cost']['grand_total'] == '30.00'
-    
+
     def test_get_order_items(self, bricklink_client, mock_oauth_session):
         """Test retrieving items for an order."""
         # Configure mock response
@@ -148,16 +147,16 @@ class TestOrder:
             ]
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.order.get_order_items(12345678)
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/orders/12345678/items',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert len(result) == 1  # One batch
         assert len(result[0]) == 2  # Two items in the batch
@@ -165,7 +164,7 @@ class TestOrder:
         assert result[0][0]['quantity'] == 2
         assert result[0][1]['item']['name'] == 'Slope 45 2 x 1'
         assert result[0][1]['quantity'] == 3
-    
+
     def test_get_order_messages(self, bricklink_client, mock_oauth_session):
         """Test retrieving messages for an order."""
         # Configure mock response
@@ -192,21 +191,21 @@ class TestOrder:
             ]
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.order.get_order_messages(12345678)
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/orders/12345678/messages',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert len(result) == 2
         assert result[0]['subject'] == 'Order Confirmation'
         assert result[1]['subject'] == 'Shipping Question'
-    
+
     def test_get_order_feedback(self, bricklink_client, mock_oauth_session):
         """Test retrieving feedback for an order."""
         # Configure mock response
@@ -226,21 +225,21 @@ class TestOrder:
             ]
         }
         mock_oauth_session.get.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.order.get_order_feedback(12345678)
-        
+
         # Verify request was made correctly
         mock_oauth_session.get.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/orders/12345678/feedback',
             params=None
         )
-        
+
         # Verify response was processed correctly
         assert len(result) == 1
         assert result[0]['rating'] == 'POSITIVE'
         assert result[0]['comment'] == 'Great seller, fast shipping!'
-    
+
     def test_update_order(self, bricklink_client, mock_oauth_session):
         """Test updating an order."""
         # Configure mock response
@@ -250,7 +249,7 @@ class TestOrder:
             'data': {'order_id': 12345678, 'status': 'UPDATED'}
         }
         mock_oauth_session.put.return_value = mock_response
-        
+
         # Call method
         update_data = {
             'shipping': {
@@ -266,18 +265,18 @@ class TestOrder:
             'remarks': 'Shipped via USPS'
         }
         result = bricklink_client.order.update_order(12345678, update_data)
-        
+
         # Verify request was made correctly
         mock_oauth_session.put.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/orders/12345678',
             params=None,
             json=update_data
         )
-        
+
         # Verify response was processed correctly
         assert result['order_id'] == 12345678
         assert result['status'] == 'UPDATED'
-    
+
     def test_update_order_status(self, bricklink_client, mock_oauth_session):
         """Test updating order status."""
         # Configure mock response
@@ -287,22 +286,23 @@ class TestOrder:
             'data': {'order_id': 12345678, 'status': 'SHIPPING'}
         }
         mock_oauth_session.put.return_value = mock_response
-        
+
         # Call method
         status_data = {'field': 'status', 'value': 'SHIPPING'}
-        result = bricklink_client.order.update_order_status(12345678, status_data)
-        
+        result = bricklink_client.order.update_order_status(
+            12345678, status_data)
+
         # Verify request was made correctly
         mock_oauth_session.put.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/orders/12345678/status',
             params=None,
             json=status_data
         )
-        
+
         # Verify response was processed correctly
         assert result['order_id'] == 12345678
         assert result['status'] == 'SHIPPING'
-    
+
     def test_update_payment_status(self, bricklink_client, mock_oauth_session):
         """Test updating payment status."""
         # Configure mock response
@@ -312,22 +312,23 @@ class TestOrder:
             'data': {'order_id': 12345678, 'payment_status': 'Received'}
         }
         mock_oauth_session.put.return_value = mock_response
-        
+
         # Call method
         payment_data = {'field': 'payment_status', 'value': 'Received'}
-        result = bricklink_client.order.update_payment_status(12345678, payment_data)
-        
+        result = bricklink_client.order.update_payment_status(
+            12345678, payment_data)
+
         # Verify request was made correctly
         mock_oauth_session.put.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/orders/12345678/payment_status',
             params=None,
             json=payment_data
         )
-        
+
         # Verify response was processed correctly
         assert result['order_id'] == 12345678
         assert result['payment_status'] == 'Received'
-    
+
     def test_send_drive_thru(self, bricklink_client, mock_oauth_session):
         """Test sending drive thru email."""
         # Configure mock response
@@ -337,16 +338,16 @@ class TestOrder:
             'data': {'success': True}
         }
         mock_oauth_session.put.return_value = mock_response
-        
+
         # Call method
         result = bricklink_client.order.send_drive_thru(12345678, mail_me=True)
-        
+
         # Verify request was made correctly
         mock_oauth_session.put.assert_called_once_with(
             'https://api.bricklink.com/api/store/v1/orders/12345678/drive_thru',
             params={'mail_me': True},
             json=None
         )
-        
+
         # Verify response was processed correctly
         assert result['success'] is True

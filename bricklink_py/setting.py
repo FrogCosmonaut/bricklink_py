@@ -9,9 +9,9 @@ class Setting(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'settings/shipping_methods'
+        uri = 'settings/shipping_methods'
         return self._request('get', uri)
-    
+
     def get_shipping_method(self, method_id: int):
         """Retrieves the specified shipping method of your store.
 
@@ -23,4 +23,3 @@ class Setting(BaseResource):
         """
         uri = f'settings/shipping_methods/{method_id}'
         return self._request('get', uri)
-    
