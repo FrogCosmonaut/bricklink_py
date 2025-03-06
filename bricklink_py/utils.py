@@ -2,7 +2,6 @@ from typing import Any
 
 from requests_oauthlib import OAuth1Session
 
-
 API_BASE_URL = "https://api.bricklink.com/api/store/v1/"
 
 

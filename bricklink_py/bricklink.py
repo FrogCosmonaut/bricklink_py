@@ -1,16 +1,16 @@
 from requests_oauthlib import OAuth1Session
 
-from .order import Order
-from .store_inventory import StoreInventory
 from .catalog_item import CatalogItem
-from .feedback import Feedback
-from .color import Color
 from .category import Category
-from .push_notification import PushNotification
+from .color import Color
 from .coupon import Coupon
-from .setting import Setting
-from .member import Member
+from .feedback import Feedback
 from .item_mapping import ItemMapping
+from .member import Member
+from .order import Order
+from .push_notification import PushNotification
+from .setting import Setting
+from .store_inventory import StoreInventory
 
 
 class Bricklink:
