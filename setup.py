@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
-from bricklink_py import version
+from bricklink_py import __version__, __description__, __author__, __email__
 
 setup(
    name='bricklink_py',
-   version=version,
-   description='Python wrapper of the bricklink API v3',
-   author='Juan Franco',
-   author_email='github@juanfg.es',
+   version=__version__,
+   description=__description__,
+   author=__author__,
+   author_email=__email__,
    packages=find_packages(),
-   install_requires=[],
+   install_requires=["requests_oauthlib"],
 )
