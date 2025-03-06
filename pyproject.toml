@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bricklink_py"
+# Only keep version as dynamic if you want to pull from __version__ in your package
+dynamic = ["version"]
+description = "Python client for the BrickLink API"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "AGPL-3.0-or-later"}
+authors = [
+    {name = "Juan Franco", email = "bricklink_py@juanfg.es"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests_oauthlib",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/FrogCosmonaut/bricklink_py"
+"Bug Tracker" = "https://github.com/FrogCosmonaut/bricklink_py/issues"
+
+[tool.setuptools]
+packages = ["bricklink_py"]
+
+[tool.setuptools.dynamic]
+version = {attr = "bricklink_py.__version__"}
