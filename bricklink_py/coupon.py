@@ -35,12 +35,9 @@ class Coupon(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        params = {
-            "direction": direction,
-            "status": status
-        }
-        uri = 'coupons'
-        return self._request('get', uri, params)
+        params = {"direction": direction, "status": status}
+        uri = "coupons"
+        return self._request("get", uri, params)
 
     def get_coupon(self, coupon_id: int):
         """Retrieves a specific coupon.
@@ -51,8 +48,8 @@ class Coupon(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'coupons/{coupon_id}'
-        return self._request('get', uri)
+        uri = f"coupons/{coupon_id}"
+        return self._request("get", uri)
 
     def create_coupon(self, body: dict):
         """Creates a new coupon for a buyer.
@@ -64,8 +61,8 @@ class Coupon(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = 'coupons'
-        return self._request('post', uri, body=body)
+        uri = "coupons"
+        return self._request("post", uri, body=body)
 
     def update_coupon(self, coupon_id: int, body: dict):
         """Updates properties of the specified coupon.
@@ -79,8 +76,8 @@ class Coupon(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'coupons/{coupon_id}'
-        return self._request('put', uri, body=body)
+        uri = f"coupons/{coupon_id}"
+        return self._request("put", uri, body=body)
 
     def delete_coupon(self, coupon_id):
         """Deletes the specified coupon.
@@ -91,5 +88,5 @@ class Coupon(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'coupons/{coupon_id}'
-        return self._request('delete', uri)
+        uri = f"coupons/{coupon_id}"
+        return self._request("delete", uri)

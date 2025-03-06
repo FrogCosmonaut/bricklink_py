@@ -3,8 +3,9 @@ from .utils import BaseResource
 
 class Order(BaseResource):
 
-    def get_orders(self, direction: str = 'in',
-                   status: str = None, filed: bool = False):
+    def get_orders(
+        self, direction: str = "in", status: str = None, filed: bool = False
+    ):
         """This method retrieves a list of orders you received or placed.
 
         Keyword Arguments:
@@ -28,13 +29,9 @@ class Order(BaseResource):
             A list of the the summary of an order resource as "data" in the
             response body.
         """
-        params = {
-            'direction': direction,
-            'status': status,
-            'filed': filed
-        }
-        uri = 'orders'
-        return self._request('get', uri, params)
+        params = {"direction": direction, "status": status, "filed": filed}
+        uri = "orders"
+        return self._request("get", uri, params)
 
     def get_order(self, order_id: int):
         """Retrieves the details of a specific order.
@@ -45,8 +42,8 @@ class Order(BaseResource):
         Returns:
             An order resource as "data" in the response body.
         """
-        uri = f'orders/{order_id}'
-        return self._request('get', uri)
+        uri = f"orders/{order_id}"
+        return self._request("get", uri)
 
     def get_order_items(self, order_id: int):
         """Retrieves a list of items for the specified order.
@@ -59,8 +56,8 @@ class Order(BaseResource):
             An inner list indicates items included in one batch of the order
             (order item batch).
         """
-        uri = f'orders/{order_id}/items'
-        return self._request('get', uri)
+        uri = f"orders/{order_id}/items"
+        return self._request("get", uri)
 
     def get_order_messages(self, order_id: int):
         """Retrieves a list of messages for the specified order that the user
@@ -72,8 +69,8 @@ class Order(BaseResource):
         Returns:
             A list of order message resource as "data" in the response body.
         """
-        uri = f'orders/{order_id}/messages'
-        return self._request('get', uri)
+        uri = f"orders/{order_id}/messages"
+        return self._request("get", uri)
 
     def get_order_feedback(self, order_id: int):
         """Retrieves a list of feedback for the specified order.
@@ -84,8 +81,8 @@ class Order(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'orders/{order_id}/feedback'
-        return self._request('get', uri)
+        uri = f"orders/{order_id}/feedback"
+        return self._request("get", uri)
 
     def update_order(self, order_id: int, body: dict):
         """Updates properties of a specific order.
@@ -116,8 +113,8 @@ class Order(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'orders/{order_id}'
-        return self._request('put', uri, body=body)
+        uri = f"orders/{order_id}"
+        return self._request("put", uri, body=body)
 
     def update_order_status(self, order_id: int, body: dict):
         """Updates the status of a specific order.
@@ -138,8 +135,8 @@ class Order(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'orders/{order_id}/status'
-        return self._request('put', uri, body=body)
+        uri = f"orders/{order_id}/status"
+        return self._request("put", uri, body=body)
 
     def update_payment_status(self, order_id: int, body: dict):
         """Updates the payment status of a specific order.
@@ -160,8 +157,8 @@ class Order(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'orders/{order_id}/payment_status'
-        return self._request('put', uri, body=body)
+        uri = f"orders/{order_id}/payment_status"
+        return self._request("put", uri, body=body)
 
     def send_drive_thru(self, order_id: int, mail_me: bool = False):
         """Send "Thank You, Drive Thru!" e-mail to a buyer.
@@ -177,5 +174,5 @@ class Order(BaseResource):
             requests.Response: The response object returned from the request.
         """
         params = {"mail_me": mail_me}
-        uri = f'orders/{order_id}/drive_thru'
-        return self._request('put', uri, params)
+        uri = f"orders/{order_id}/drive_thru"
+        return self._request("put", uri, params)

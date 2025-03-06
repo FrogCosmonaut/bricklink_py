@@ -16,8 +16,8 @@ class CatalogItem(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'items/{type}/{no}'
-        return self._request('get', uri)
+        uri = f"items/{type}/{no}"
+        return self._request("get", uri)
 
     def get_item_image(self, type: str, no: str, color_id: int):
         """Returns image URL of the specified item by colors.
@@ -34,8 +34,8 @@ class CatalogItem(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'items/{type}/{no}/images/{color_id}'
-        return self._request('get', uri)
+        uri = f"items/{type}/{no}/images/{color_id}"
+        return self._request("get", uri)
 
     def get_supersets(self, type: str, no: str, color_id: int = None):
         """Returns a list of items that include the specified item.
@@ -54,13 +54,19 @@ class CatalogItem(BaseResource):
             requests.Response: The response object returned from the request.
         """
         params = {"color_id": color_id}
-        uri = f'items/{type}/{no}/supersets'
-        return self._request('get', uri, params)
+        uri = f"items/{type}/{no}/supersets"
+        return self._request("get", uri, params)
 
-    def get_subsets(self, type: str, no: str, color_id: int = None,
-                    box: bool = False, instruction: bool = False,
-                    break_minifigs: bool = False,
-                    break_subsets: bool = False):
+    def get_subsets(
+        self,
+        type: str,
+        no: str,
+        color_id: int = None,
+        box: bool = False,
+        instruction: bool = False,
+        break_minifigs: bool = False,
+        break_subsets: bool = False,
+    ):
         """Returns a list of items that are included in the specified item.
 
         Arguments:
@@ -94,15 +100,23 @@ class CatalogItem(BaseResource):
             "box": box,
             "instruction": instruction,
             "break_minifigs": break_minifigs,
-            "break_subsets": break_subsets
+            "break_subsets": break_subsets,
         }
-        uri = f'items/{type}/{no}/subsets'
-        return self._request('get', uri, params)
+        uri = f"items/{type}/{no}/subsets"
+        return self._request("get", uri, params)
 
-    def get_price_guide(self, type: str, no: str, color_id: int = None,
-                        guide_type: str = "stock", new_or_used: str = "N",
-                        country_code: str = None, region: str = None,
-                        currency_code: str = None, vat: str = "N"):
+    def get_price_guide(
+        self,
+        type: str,
+        no: str,
+        color_id: int = None,
+        guide_type: str = "stock",
+        new_or_used: str = "N",
+        country_code: str = None,
+        region: str = None,
+        currency_code: str = None,
+        vat: str = "N",
+    ):
         """Returns the price statistics of the specified item in
         BrickLink catalog.
 
@@ -173,10 +187,10 @@ class CatalogItem(BaseResource):
             "country_code": country_code,
             "region": region,
             "currency_code": currency_code,
-            "vat": vat
+            "vat": vat,
         }
-        uri = f'items/{type}/{no}/price'
-        return self._request('get', uri, params)
+        uri = f"items/{type}/{no}/price"
+        return self._request("get", uri, params)
 
     def get_known_colors(self, type: str, no: str):
         """Returns currently known colors of the item.
@@ -191,5 +205,5 @@ class CatalogItem(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'items/{type}/{no}/colors'
-        return self._request('get', uri)
+        uri = f"items/{type}/{no}/colors"
+        return self._request("get", uri)

@@ -3,8 +3,13 @@ from .utils import BaseResource
 
 class StoreInventory(BaseResource):
 
-    def get_store_inventories(self, item_type: str = None, status: str = None,
-                              category_id: int = None, color_id: int = None):
+    def get_store_inventories(
+        self,
+        item_type: str = None,
+        status: str = None,
+        category_id: int = None,
+        color_id: int = None,
+    ):
         """Retrieves a list of inventories you have.
 
         Keyword Arguments:
@@ -66,10 +71,10 @@ class StoreInventory(BaseResource):
             "item_type": item_type,
             "status": status,
             "category_id": category_id,
-            "color_id": color_id
+            "color_id": color_id,
         }
-        uri = 'inventories'
-        return self._request('get', uri, params)
+        uri = "inventories"
+        return self._request("get", uri, params)
 
     def get_store_inventory(self, inventory_id: int):
         """Retrieves information about a specific inventory.
@@ -80,8 +85,8 @@ class StoreInventory(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'inventories/{inventory_id}'
-        return self._request('get', uri)
+        uri = f"inventories/{inventory_id}"
+        return self._request("get", uri)
 
     def create_store_inventory(self, body: dict):
         """Creates a new inventory with an item.
@@ -102,8 +107,8 @@ class StoreInventory(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = 'inventories'
-        return self._request('post', uri, body=body)
+        uri = "inventories"
+        return self._request("post", uri, body=body)
 
     def create_store_inventories(self, body: dict):
         """Creates multiple inventories in a single request. Note that you can
@@ -125,8 +130,8 @@ class StoreInventory(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = 'inventories'
-        return self._request('post', uri, body=body)
+        uri = "inventories"
+        return self._request("post", uri, body=body)
 
     def update_store_inventory(self, inventory_id: int, body: dict):
         """Updates properties of the specified inventory.
@@ -148,8 +153,8 @@ class StoreInventory(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'inventories/{inventory_id}'
-        return self._request('put', uri, body=body)
+        uri = f"inventories/{inventory_id}"
+        return self._request("put", uri, body=body)
 
     def delete_store_inventory(self, inventory_id: int):
         """Deletes the specified inventory.
@@ -160,5 +165,5 @@ class StoreInventory(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'inventories/{inventory_id}'
-        return self._request('delete', uri)
+        uri = f"inventories/{inventory_id}"
+        return self._request("delete", uri)

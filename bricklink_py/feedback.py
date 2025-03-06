@@ -17,8 +17,8 @@ class Feedback(BaseResource):
             requests.Response: The response object returned from the request.
         """
         params = {"direction": direction}
-        uri = 'feedback'
-        return self._request('get', uri, params)
+        uri = "feedback"
+        return self._request("get", uri, params)
 
     def get_feedback(self, feedback_id: int):
         """Gets a specified feedback.
@@ -29,8 +29,8 @@ class Feedback(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'feedback/{feedback_id}'
-        return self._request('get', uri)
+        uri = f"feedback/{feedback_id}"
+        return self._request("get", uri)
 
     def post_feedback(self, body: dict):
         """Posts a new feedback about the transaction.
@@ -43,8 +43,8 @@ class Feedback(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = 'feedback'
-        return self._request('post', uri, body=body)
+        uri = "feedback"
+        return self._request("post", uri, body=body)
 
     def reply_feedback(self, feedback_id: int, body: dict):
         """Creates a reply to the specified feedback you received.
@@ -58,5 +58,5 @@ class Feedback(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'feedback/{feedback_id}/reply'
-        return self._request('post', uri, body=body)
+        uri = f"feedback/{feedback_id}/reply"
+        return self._request("post", uri, body=body)

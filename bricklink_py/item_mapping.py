@@ -19,8 +19,8 @@ class ItemMapping(BaseResource):
             requests.Response: The response object returned from the request.
         """
         params = {"color_id": color_id}
-        uri = f'item_mapping/{type}/{no}'
-        return self._request('get', uri, params)
+        uri = f"item_mapping/{type}/{no}"
+        return self._request("get", uri, params)
 
     def get_item_number(self, element_id: str):
         """Returns BL Catalog Item Number by Part-Color-Code (A.K.A ElementID)
@@ -31,5 +31,5 @@ class ItemMapping(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = f'item_mapping/{element_id}'
-        return self._request('get', uri)
+        uri = f"item_mapping/{element_id}"
+        return self._request("get", uri)

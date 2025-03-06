@@ -18,5 +18,5 @@ class PushNotification(BaseResource):
         Returns:
             requests.Response: The response object returned from the request.
         """
-        uri = 'notifications'
-        return self._request('get', uri)
+        uri = "notifications"
+        return self._request("get", uri)

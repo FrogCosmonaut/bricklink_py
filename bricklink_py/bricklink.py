@@ -13,7 +13,7 @@ from .member import Member
 from .item_mapping import ItemMapping
 
 
-class Bricklink():
+class Bricklink:
     """Main client for the Bricklink API."""
 
     def __init__(
@@ -21,7 +21,7 @@ class Bricklink():
         consumer_key: str = None,
         consumer_secret: str = None,
         token: str = None,
-        token_secret: str = None
+        token_secret: str = None,
     ):
         """
         Initialize the Bricklink API client
@@ -33,7 +33,8 @@ class Bricklink():
             token_secret: OAuth token secret
         """
         self.oauth_session = self._authenticate(
-            consumer_key, consumer_secret, token, token_secret)
+            consumer_key, consumer_secret, token, token_secret
+        )
 
         self.order = Order(self.oauth_session)
         self.store_inventory = StoreInventory(self.oauth_session)
@@ -64,5 +65,5 @@ class Bricklink():
             client_key=ck,
             client_secret=cs,
             resource_owner_key=tk,
-            resource_owner_secret=tks
+            resource_owner_secret=tks,
         )
