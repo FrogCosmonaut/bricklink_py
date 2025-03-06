@@ -1,14 +1,15 @@
-import pytest
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 from bricklink_py.utils import (
-    handle_response,
-    request,
+    AuthenticationError,
     BaseResource,
     BricklinkError,
-    ResourceNotFoundError,
     RateLimitError,
-    AuthenticationError,
+    ResourceNotFoundError,
+    handle_response,
+    request,
 )
 
 

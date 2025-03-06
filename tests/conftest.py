@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import MagicMock, patch
+
+import pytest
 from requests_oauthlib import OAuth1Session
 
 from bricklink_py.bricklink import Bricklink
