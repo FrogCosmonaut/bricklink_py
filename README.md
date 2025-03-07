@@ -1,5 +1,5 @@
 # Bricklink API Python Wrapper
-###### bricklink_py 0.1.0-beta
+###### bricklink_py 0.1.1-beta
 
 This Python library provides a clean wrapper for the Bricklink API, making it simple to integrate Bricklink's marketplace functionality into your Python projects. Access item searches, inventory management, order processing, and more through an intuitive interface that handles all the API complexities behind the scenes.
 
