@@ -1,85 +1,89 @@
-# bricklink_py
-###### Version: 0.1.0
----
-This Python library provides a convenient wrapper for interacting with the Bricklink API. Bricklink is an online marketplace for buying and selling LEGO® bricks, sets, and minifigures.
+# Bricklink API Python Wrapper
+###### bricklink_py 0.1.0-beta
 
-With this wrapper, you can easily integrate Bricklink's functionality into your Python applications, allowing you to perform various operations such as searching for items, retrieving store inventories, managing orders, and more. It abstracts away the complexities of the API, providing a simple and intuitive interface.
+This Python library provides a clean wrapper for the Bricklink API, making it simple to integrate Bricklink's marketplace functionality into your Python projects. Access item searches, inventory management, order processing, and more through an intuitive interface that handles all the API complexities behind the scenes.
 
-### Key Features
+## Key Features
 
-- *Item Search*: Search for items on Bricklink using various criteria like keywords, category, color, and more.
-- *Store Inventory*: Retrieve store inventories, including available quantities and prices.
-- *Order Management*: Create, update, and retrieve order information, including order status, items, and shipping details.
-- *Catalog Information*: Access detailed information about LEGO® items, including their categories, colors, and images.
-- *Price Guide*: Get pricing information for items based on condition and quantity.
-- *Authentication*: Provides methods to obtain and manage the necessary API tokens for authenticating requests.
+- **Item Search** - Find Bricklink items using filters for keywords, categories, colors, and more
+- **Store Inventory** - Access store inventories with current quantities and pricing
+- **Order Management** - Handle order creation, updates, and tracking
+- **Catalog Information** - Get detailed item data including categories and images
+- **Price Guide** - Access current market pricing based on condition and quantity
+- **Authentication** - Simplified token management for API access
 
-### Installation
+## Installation
 
 ```bash
-$ pip install bricklink-py
+pip install bricklink-py
 ```
+
+## Quick Start
 
 ```python
-from bricklink_py import bricklink
+from bricklink_py import Bricklink
 
-session = bricklink.Bricklink('credentials')
+session = Bricklink('your_credentials')
 ```
 
-### Example
+## Example Usage
 
 ```python
 from html import unescape
-from bricklink_py import bricklink
+from bricklink_py import Bricklink
 
-# create session object
-    session = bricklink.Bricklink(
+# Initialize API session
+session = Bricklink(
     consumer_key='your_consumer_key',
     consumer_secret='your_consumer_secret',
     token='your_token',
     token_secret='your_token_secret'
 )
 
-# Price checker example
+# Check pricing for a specific set
 set_no = '75281-1'
 
+# Get basic set information
 set_item = session.catalog_item.get_item('SET', set_no)
 set_name = unescape(set_item['name'])
 set_weight = set_item['weight']
 year_released = set_item['year_released']
 
-price_guide = session.catalog_item.get_price_guide('SET', set_no,
-                                                   guide_type='sold')
+# Get pricing data
+price_guide = session.catalog_item.get_price_guide('SET', set_no, guide_type='sold')
 avg_price = float(price_guide['avg_price'])
 currency = price_guide['currency_code']
 
 print(f'The "{set_name}" set was released in {year_released}.')
-print(f'It weights {set_weight}gr.')
+print(f'It weighs {set_weight}g.')
 print(f'Average sold price for last 6 months: {avg_price:.2f} {currency}')
 ```
+
 Output:
 ```
->> The "Anakin's Jedi Interceptor" set was released in 2020.
->> It weights 360.00gr.
->> Average sold price for last 6 months: 41.27 EUR
+The "Anakin's Jedi Interceptor" set was released in 2020.
+It weighs 360.00g.
+Average sold price for last 6 months: 41.27 EUR
 ```
 
-### Getting Bricklink API Credentials
+## Getting API Credentials
 
-To use the Bricklink API, you need to obtain API tokens from the Bricklink API consumer page. Here's how you can get started:
+To use the wrapper, you'll need Bricklink API credentials:
 
-1. Visit the [Bricklink API page](https://www.bricklink.com/v2/api/welcome.page).
-2. Agree the [API Terms of Use](https://www.bricklink.com/v3/terms_of_use_api.page) to use BrickLink API.
-3. Login/Register in the [consumer page](https://www.bricklink.com/v2/api/register_consumer.page)
-4. Generate an access token with your external IP.
-5. Then you have all the credentials needed for the session object.
+1. Visit the [Bricklink API page](https://www.bricklink.com/v2/api/welcome.page)
+2. Accept the [API Terms of Use](https://www.bricklink.com/v3/terms_of_use_api.page)
+3. Sign in or register on the [consumer page](https://www.bricklink.com/v2/api/register_consumer.page)
+4. Generate an access token with your external IP
+5. Use the provided credentials in your session object
 
-### Contributions and Issues
+## Contributing
 
-Contributions, bug reports, and feature requests are welcome! If you encounter any issues or have any suggestions, please create an issue on the GitHub repository.
+Contributions, bug reports, and feature requests are welcome! If you find issues or have ideas for improvements, please open an issue on GitHub.
 
-### License
+## License
 
-This project is licensed under the GNU Affero General Public License (AGPL). Feel free to use, modify, and distribute it according to the terms of the AGPL license.
+This project is licensed under the GNU Affero General Public License (AGPL).
 
-LEGO® is a trademark of the LEGO Group of companies, which does not sponsor, authorize, or endorse this project.
+---
+
+LEGO® is a trademark of the LEGO Group, which does not sponsor, authorize, or endorse this project.
