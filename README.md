@@ -13,9 +13,9 @@ This Python library provides a clean wrapper for the Bricklink API, making it si
 - **Authentication** - Simplified token management for API access
 
 ## Installation
-
+##### Install pre-release version v0.1.0-beta
 ```bash
-pip install bricklink-py
+pip install bricklink-py --pre
 ```
 
 ## Quick Start
