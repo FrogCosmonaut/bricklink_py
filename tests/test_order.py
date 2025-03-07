@@ -348,13 +348,13 @@ class TestOrder:
             "meta": {"code": 200},
             "data": {"success": True},
         }
-        mock_oauth_session.put.return_value = mock_response
+        mock_oauth_session.post.return_value = mock_response
 
         # Call method
         result = bricklink_client.order.send_drive_thru(12345678, mail_me=True)
 
         # Verify request was made correctly
-        mock_oauth_session.put.assert_called_once_with(
+        mock_oauth_session.post.assert_called_once_with(
             "https://api.bricklink.com/api/store/v1/orders/12345678/drive_thru",
             params={"mail_me": True},
             json=None,

@@ -175,4 +175,4 @@ class Order(BaseResource):
         """
         params = {"mail_me": mail_me}
         uri = f"orders/{order_id}/drive_thru"
-        return self._request("put", uri, params)
+        return self._request("post", uri, params)
