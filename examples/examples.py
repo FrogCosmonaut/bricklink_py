@@ -1,13 +1,13 @@
 from html import unescape
-from bricklink_py import bricklink
+from bricklink_py import Bricklink
 
 # create session object
-session = bricklink.Bricklink(
-            consumer_key='your_consumer_key',
-            consumer_secret='your_consumer_secret',
-            token='your_token',
-            token_secret='your_token_secret'
-            )
+session = Bricklink(
+    consumer_key='YOUR_CONSUMER_KEY',
+    consumer_secret='YOUR_CONSUMER_SECRET',
+    token='YOUR_TOKEN',
+    token_secret='YOUR_TOKEN_SECRET'
+)
 
 
 # Get all colors example
@@ -27,8 +27,7 @@ set_name = unescape(set_item['name'])
 set_weight = set_item['weight']
 year_released = set_item['year_released']
 
-price_guide = session.catalog_item.get_price_guide('SET', set_no,
-                                                   guide_type='sold')
+price_guide = session.catalog_item.get_price_guide('SET', set_no, guide_type='sold')
 avg_price = float(price_guide['avg_price'])
 currency = price_guide['currency_code']
 

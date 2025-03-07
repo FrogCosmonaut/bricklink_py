@@ -1,5 +1,9 @@
-# Creator: https://github.com/FrogCosmonaut
+from .bricklink import Bricklink
 
-version = "0.0.1"
+__all__ = ["Bricklink"]
 
-from bricklink_py import bricklink
+# Package metadata
+__version__ = "0.1.0-beta"
+__author__ = "Juan Franco"
+__email__ = "bricklink_py@juanfg.es"
+__description__ = "A wrapper for interacting with the Bricklink API."
