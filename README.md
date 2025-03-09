@@ -1,5 +1,27 @@
 # Bricklink API Python Wrapper
-###### bricklink_py 0.1.1-beta
+###### bricklink_py 1.0.0
+
+# WIP Under construction
+## Add dataclasses to return objects ⏱
+Instead of
+```python
+order = Bricklink.orders.get_order(10)
+order_status = {
+    "field" : "status",
+    "value" : "PENDING"
+}
+Bricklink.orders.update_order_status(order['order_id'], order_status)
+Bricklink.orders.send_drive_thru(order['order_id'])
+```
+Be able to do
+```python
+order = Bricklink.orders.get_order(10)
+order.update_order_status('PENDING')
+order.send_drive_thru()
+```
+## Better hierarchy ⏱
+## Retry logic for 429 ⏱
+## CLI commands ⏱
 
 This Python library provides a clean wrapper for the Bricklink API, making it simple to integrate Bricklink's marketplace functionality into your Python projects. Access item searches, inventory management, order processing, and more through an intuitive interface that handles all the API complexities behind the scenes.
 
@@ -13,9 +35,8 @@ This Python library provides a clean wrapper for the Bricklink API, making it si
 - **Authentication** - Simplified token management for API access
 
 ## Installation
-##### Install pre-release version v0.1.0-beta
 ```bash
-pip install bricklink-py --pre
+pip install bricklink-py
 ```
 
 ## Quick Start
