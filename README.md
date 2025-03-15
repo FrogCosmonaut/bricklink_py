@@ -1,8 +1,7 @@
 # Bricklink API Python Wrapper
-###### bricklink_py 1.0.0
-
-# WIP Under construction
-## Add dataclasses to return objects ⏱
+This Python library provides a clean wrapper for the Bricklink API, making it simple to integrate Bricklink's marketplace functionality into your Python projects. Access item searches, inventory management, order processing, and more through an intuitive interface that handles all the API complexities behind the scenes.
+## Version 1.0.0 features
+### Add dataclasses to return objects
 Instead of
 ```python
 order = Bricklink.orders.get_order(10)
@@ -19,11 +18,9 @@ order = Bricklink.orders.get_order(10)
 order.update_order_status('PENDING')
 order.send_drive_thru()
 ```
-## Better hierarchy ⏱
-## Retry logic for 429 ⏱
-## CLI commands ⏱
-
-This Python library provides a clean wrapper for the Bricklink API, making it simple to integrate Bricklink's marketplace functionality into your Python projects. Access item searches, inventory management, order processing, and more through an intuitive interface that handles all the API complexities behind the scenes.
+### Better hierarchy
+### Retry logic for 429
+### CLI commands
 
 ## Key Features
 

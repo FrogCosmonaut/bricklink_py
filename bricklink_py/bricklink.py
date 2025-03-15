@@ -2,12 +2,12 @@ from requests_oauthlib import OAuth1Session
 
 from .catalog_item import CatalogItem
 from .category import Category
-from .color import Color
+from .color import ColorManager
 from .coupon import Coupon
 from .feedback import Feedback
 from .item_mapping import ItemMapping
 from .member import Member
-from .order import Order
+from .order import OrderManager
 from .push_notification import PushNotification
 from .setting import Setting
 from .store_inventory import StoreInventory
@@ -36,11 +36,11 @@ class Bricklink:
             consumer_key, consumer_secret, token, token_secret
         )
 
-        self.order = Order(self.oauth_session)
+        self.order = OrderManager(self.oauth_session)
         self.store_inventory = StoreInventory(self.oauth_session)
         self.catalog_item = CatalogItem(self.oauth_session)
         self.feedback = Feedback(self.oauth_session)
-        self.color = Color(self.oauth_session)
+        self.color = ColorManager(self.oauth_session)
         self.category = Category(self.oauth_session)
         self.push_notification = PushNotification(self.oauth_session)
         self.coupon = Coupon(self.oauth_session)
@@ -61,6 +61,23 @@ class Bricklink:
         Returns:
             Authenticated OAuth1Session
         """
+        missing_credentials = []
+        if not ck:
+            missing_credentials.append("consumer_key")
+        if not cs:
+            missing_credentials.append("consumer_secret")
+        if not tk:
+            missing_credentials.append("token")
+        if not tks:
+            missing_credentials.append("token_secret")
+
+        if missing_credentials:
+            raise ValueError(
+                f"Authentication failed: Missing required credentials: {', '.join(missing_credentials)}. "
+                f"Please provide all OAuth credentials to connect to the Bricklink API. "
+                f"You can obtain these from your https://www.bricklink.com/v2/api/register_consumer.page"
+            )
+
         return OAuth1Session(
             client_key=ck,
             client_secret=cs,
