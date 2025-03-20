@@ -53,14 +53,20 @@ class BaseResource:
 
 
 def handle_response(response):
-    """Process API response and handle errors appropriately"""
+    """Process API response and handle errors appropriately.
+    https://www.bricklink.com/v3/api.page?page=error-handling"""
+
+    # Handle successful empty responses (204 NO CONTENT)
+    if response.status_code == 204:
+        return {}
+
     try:
         response_data = response.json()
     except ValueError:
         response.raise_for_status()
         return response
 
-    if "meta" in response_data and response_data["meta"]["code"] != 200:
+    if "meta" in response_data and response_data["meta"]["code"] not in (200, 201, 204):
         error_code = response_data["meta"]["code"]
         error_message = response_data["meta"].get("message", "Unknown error")
 
